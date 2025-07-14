@@ -59,8 +59,7 @@ print(f"Dataset Location:     {DA.paths.datasets}")
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC CREATE TABLE 
-# MAGIC <FILL_IN>
+# MAGIC CREATE TABLE IF NOT EXISTS promotion_data;
 
 # COMMAND ----------
 
@@ -85,8 +84,8 @@ assert suite
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC
-# MAGIC Follow the instructions in the notebook, "2.2 - Data Governance and Security," if you need to review how this is done.
+# MAGIC -- If you would like to use a query to complete this task, you could use:
+# MAGIC GRANT SELECT ON TABLE promotion_data TO `account users`;
 
 # COMMAND ----------
 
@@ -111,10 +110,10 @@ assert  not result.isEmpty(), "GRANT was not performed correctly. Try again."
 
 # MAGIC %sql
 # MAGIC
-# MAGIC COPY INTO FILL_IN
-# MAGIC   FROM 'FILL_IN'
-# MAGIC   FILEFORMAT = FILL_IN
-# MAGIC   FORMAT_OPTIONS ('FILL_IN')
+# MAGIC COPY INTO promotion_data
+# MAGIC   FROM '/databricks-datasets/retail-org/promotions/promotions.csv'
+# MAGIC   FILEFORMAT = CSV
+# MAGIC   FORMAT_OPTIONS ('inferSchema' = 'true', 'header' = 'true')
 # MAGIC   COPY_OPTIONS ('mergeSchema' = 'true')
 
 # COMMAND ----------
@@ -150,7 +149,8 @@ DA.print_job_config_v1()
 
 # COMMAND ----------
 
-Using the parameters above, configure a job with the notebook task. The path above is the notebook you should use to configure the notebook task.
+# This portion of the lab requires you to manually configure the job. However, we can use the code below to automatically configure the job using the Databricks Academy (DA) object
+DA.create_job_v1()
 
 # COMMAND ----------
 
@@ -169,7 +169,9 @@ DA.validate_job_v1_config()
 
 # COMMAND ----------
 
-Run the job you configured above
+# This portion of the lab requires you to manually run the job. However, we can use the code below to automatically run the job using the Databricks Academy (DA) object.
+# This will take a bit of time
+DA.start_job()
 
 # COMMAND ----------
 
